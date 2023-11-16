@@ -12,6 +12,7 @@ const [page, setPage] = useState(1);
 const [query, setQuery] = useState('');
 const [images, setImages] = useState([]);
 const [loading, setLoading] = useState(false);
+const [buttonVisible, setButtonVisible] = useState(true);
 
 
  const addPhoto = value => {
@@ -36,7 +37,12 @@ const [loading, setLoading] = useState(false);
       setLoading(true);
       
       const photos = await fetchImagesWithQuery(query, page);
-      setImages(prevImages=>[...prevImages, ...photos])
+      setImages(prevImages=>[...prevImages, ...photos]);
+      if (photos.length < 12) {
+        setButtonVisible(false);
+      } else {
+        setButtonVisible(true);
+      }
     }
     catch (error) {
       toast.error('Please, try loading page again')
@@ -63,7 +69,7 @@ const [loading, setLoading] = useState(false);
         {images.length > 0 && (
           <ImageGallery images={images}/>
         )}
-        {images.length > 11 && <Button onButton={onButton} />}
+        {buttonVisible && images.length > 11 && <Button onButton={onButton} />}
         <Toaster/>
       </div>
     );
