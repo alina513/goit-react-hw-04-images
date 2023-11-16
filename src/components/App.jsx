@@ -5,15 +5,14 @@ import { ImageGallery } from './ImageGallery/ImageGallery';
 import { fetchImagesWithQuery } from './helpers/helpers';
 import { Button } from './Button/Button';
 import { Loader } from './Loader/Loader';
-import  { Toaster } from 'react-hot-toast';
+import  toast, { Toaster } from 'react-hot-toast';
 export const App = () => {
   
 const [page, setPage] = useState(1);
 const [query, setQuery] = useState('');
 const [images, setImages] = useState([]);
 const [loading, setLoading] = useState(false);
-const [error, setError] = useState(false);
-  
+
 
  const addPhoto = value => {
     setQuery(value);
@@ -35,12 +34,12 @@ const [error, setError] = useState(false);
     }
     try {
       setLoading(true);
-      setError(false);
+      
       const photos = await fetchImagesWithQuery(query, page);
       setImages(prevImages=>[...prevImages, ...photos])
     }
     catch (error) {
-      setError(true);
+      toast.error('Please, try loading page again')
     }
     finally {
       setLoading(false);
