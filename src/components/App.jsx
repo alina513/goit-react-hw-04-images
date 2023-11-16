@@ -5,7 +5,7 @@ import { ImageGallery } from './ImageGallery/ImageGallery';
 import { fetchImagesWithQuery } from './helpers/helpers';
 import { Button } from './Button/Button';
 import { Loader } from './Loader/Loader';
-import toast, { Toaster } from 'react-hot-toast';
+import  { Toaster } from 'react-hot-toast';
 export const App = () => {
   
 const [page, setPage] = useState(1);
@@ -27,9 +27,6 @@ const [error, setError] = useState(false);
       prevPage + 1,
     );
   };
-
-  
-  
 
 
   useEffect(() => {async function getPhoto() {
